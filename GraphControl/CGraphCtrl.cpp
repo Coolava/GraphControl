@@ -21,6 +21,7 @@ CGraphCtrl::CGraphCtrl(CWnd* pParent, UINT nID)
 
 CGraphCtrl::~CGraphCtrl()
 {
+	plotContainer.clear();
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 }
 
@@ -55,20 +56,22 @@ void CGraphCtrl::OnPaint()
 	CPaintDC dc(this); 
 
 	Gdiplus::Graphics graphic(dc);
-	//graphic.Clear(Gdiplus::Color::White);
+	CRect rc;
+	GetClientRect(rc);
+
+	/*buffer*/
+	Gdiplus::Bitmap bitmap_buffer(rc.Width(), rc.Height(), PixelFormat32bppARGB);
+	Gdiplus::Graphics graphic_buffer(&bitmap_buffer);
+
+	/*Draw background*/
+	graphic_buffer.Clear(Gdiplus::Color::White);
+
 	for (auto &plot : plotContainer)
 	{
-		Gdiplus::ImageAttributes imageAttr;
-		imageAttr.SetColorKey(Gdiplus::Color(0, 255, 0), Gdiplus::Color(0, 255, 0));
-		CRect rcDst, rcSrc;
-		GetClientRect(rcDst);
-		plot->GetClientRect(rcSrc);
-		
-		graphic.DrawImage(plot->getBitmap(), Gdiplus::Rect(rcDst.left, rcDst.top, rcDst.Width(), rcDst.Height()), 0, 0, rcSrc.Width(), rcSrc.Height(), Gdiplus::Unit::UnitPixel, &imageAttr);
-
-		
-		//graphic.DrawImage(plot->getBitmap(),0,0);
+		graphic_buffer.DrawImage(plot->getBitmap(),0,0);
 	}
+
+	graphic.DrawImage(&bitmap_buffer, 0, 0);
 
 
 }

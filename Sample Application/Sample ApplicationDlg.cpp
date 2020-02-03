@@ -116,10 +116,10 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 		int iPos = sliderCircle.GetPos();
 
 		((CCirclePlot*)m_CtrlGraph.getPlot(0).get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
-		//((CCirclePlot*)m_CtrlGraph.getPlot(1).get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
+		((CCirclePlot*)m_CtrlGraph.getPlot(1).get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
 		//((CCirclePlot*)plot1->get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
 		//((CCirclePlot*)plot2->get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
-		m_CtrlGraph.Invalidate();
+		m_CtrlGraph.Invalidate(false);
 
 	}
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
