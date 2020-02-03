@@ -188,6 +188,7 @@
     <ClInclude Include="..\GraphControl\CGraphCtrl.h" />
     <ClInclude Include="..\GraphControl\CPlot.h" />
     <ClInclude Include="..\GraphControl\Define.h" />
+    <ClInclude Include="CLinearPlot.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -196,9 +197,16 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GraphControl\CCirclePlot.cpp" />
-    <ClCompile Include="..\GraphControl\CGraphCtrl.cpp" />
-    <ClCompile Include="..\GraphControl\CPlot.cpp" />
+    <ClCompile Include="..\GraphControl\CCirclePlot.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CGraphCtrl.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CPlot.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="CLinearPlot.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

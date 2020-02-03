@@ -48,6 +48,9 @@
     <ClInclude Include="..\GraphControl\Define.h">
       <Filter>GraphCtrl</Filter>
     </ClInclude>
+    <ClInclude Include="CLinearPlot.h">
+      <Filter>GraphCtrl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sample Application.cpp">
@@ -66,6 +69,9 @@
       <Filter>GraphCtrl</Filter>
     </ClCompile>
     <ClCompile Include="..\GraphControl\CPlot.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="CLinearPlot.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
   </ItemGroup>

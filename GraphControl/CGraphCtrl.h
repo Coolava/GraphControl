@@ -18,7 +18,7 @@ public:
 	CGraphCtrl();
 
 	/*This function call CWnd::Create*/
-	CGraphCtrl(CWnd* pParent, UINT nID);
+	//CGraphCtrl(CWnd* pParent, UINT nID);
 
 	~CGraphCtrl();
 
