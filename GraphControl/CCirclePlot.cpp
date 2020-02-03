@@ -17,14 +17,10 @@ CCirclePlot::~CCirclePlot()
 	if (bitmap)
 	{
 		bitmap.reset();
-		//Gdiplus::Bitmap* bmp = bitmap.release();
-		//delete bmp;
 	}
 	if (graphics)
 	{
 		graphics.reset();
-		//Gdiplus::Graphics* grp = graphics.release();
-		//delete grp;
 	}
 }
 

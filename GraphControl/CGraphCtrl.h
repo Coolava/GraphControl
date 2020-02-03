@@ -3,7 +3,8 @@
 #include <gdiplus.h>
 #include <vector>
 #include <memory>
-#include "CPlot.h"
+
+#include "CCircleBack.h"
 #include "CCirclePlot.h"
 #include "Define.h"
 #pragma comment (lib,"Gdiplus.lib")
@@ -29,7 +30,8 @@ public:
 	*/
 	bool addPlot(vector<unique_ptr<CPlot>>::iterator& it);
 
-	unique_ptr<CPlot>& getPlot(size_t index);
+	CPlot* getPlot(size_t index);
+	//unique_ptr<CPlot>& getPlot(size_t index);
 
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();
@@ -42,5 +44,9 @@ private:
 	GraphType graphType = GraphType::Default;
 	void InitializeDefault();
 
+	unique_ptr<CBackGround> backGround;
 	vector<unique_ptr<CPlot>> plotContainer;
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	virtual BOOL Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
 };

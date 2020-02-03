@@ -1,6 +1,7 @@
 #include "CGraphCtrl.h"
 BEGIN_MESSAGE_MAP(CGraphCtrl, CWnd)
 	ON_WM_PAINT()
+	ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 
@@ -21,6 +22,7 @@ CGraphCtrl::CGraphCtrl()
 CGraphCtrl::~CGraphCtrl()
 {
 	plotContainer.clear();
+	backGround.reset();
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 }
 
@@ -37,7 +39,7 @@ bool CGraphCtrl::addPlot(vector<unique_ptr<CPlot>>::iterator& it)
 		{
 			try
 			{
-				plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc, this, nID + size + 10000)));
+				plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc, this, nID + size + (UINT)IDoffset::Plot)));
 				it = (plotContainer.end() - 1);
 				return true;
 			}
@@ -48,9 +50,10 @@ bool CGraphCtrl::addPlot(vector<unique_ptr<CPlot>>::iterator& it)
 	return false;
 }
 
-unique_ptr<CPlot>& CGraphCtrl::getPlot(size_t index)
+CPlot* CGraphCtrl::getPlot(size_t index)
+//unique_ptr<CPlot>& CGraphCtrl::getPlot(size_t index)
 {
-	return plotContainer.at(index);
+	return plotContainer.at(index).get();
 }
 
 void CGraphCtrl::OnPaint()
@@ -71,7 +74,9 @@ void CGraphCtrl::OnPaint()
 	Sol 1 : Fill background
 	Sol 2 : Copy parent background
 	*/
-	graphic_buffer.Clear(Gdiplus::Color::White);
+
+	graphic_buffer.DrawImage(backGround->getBitmap(),0,0);
+	//graphic_buffer.Clear(Gdiplus::Color::White);
 
 	for (auto &plot : plotContainer)
 	{
@@ -98,5 +103,26 @@ void CGraphCtrl::InitializeDefault()
 {
 	gdiplusStatus = InitializeGdiplus();
 
+}
 
+
+int CGraphCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CWnd::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	return 0;
+}
+
+
+BOOL CGraphCtrl::Create(LPCTSTR lpszClassName, LPCTSTR lpszWindowName, DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext)
+{
+
+	if (nID > 0)
+	{
+		backGround = unique_ptr<CBackGround>(new CCircleBack(rect, this, nID + (UINT)IDoffset::Background));
+	}
+
+
+	return CWnd::Create(lpszClassName, lpszWindowName, dwStyle, rect, pParentWnd, nID, pContext);
 }

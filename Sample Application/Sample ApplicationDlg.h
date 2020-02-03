@@ -28,7 +28,7 @@ protected:
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 
-	CGraphCtrl m_CtrlGraph;
+	CGraphCtrl m_CtrlCircle;
 	vector<unique_ptr<CPlot>>::iterator plot1;
 	vector<unique_ptr<CPlot>>::iterator plot2;
 

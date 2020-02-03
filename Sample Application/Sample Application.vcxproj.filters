@@ -48,7 +48,16 @@
     <ClInclude Include="..\GraphControl\Define.h">
       <Filter>GraphCtrl</Filter>
     </ClInclude>
-    <ClInclude Include="CLinearPlot.h">
+    <ClInclude Include="..\GraphControl\CBackGround.h">
+      <Filter>GraphCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GraphControl\CCircleBack.h">
+      <Filter>GraphCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GraphControl\CLinearPlot.h">
+      <Filter>GraphCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GraphControl\CLinearBack.h">
       <Filter>GraphCtrl</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,16 +71,25 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\GraphControl\CCirclePlot.cpp">
-      <Filter>GraphCtrl</Filter>
-    </ClCompile>
     <ClCompile Include="..\GraphControl\CGraphCtrl.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
     <ClCompile Include="..\GraphControl\CPlot.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
-    <ClCompile Include="CLinearPlot.cpp">
+    <ClCompile Include="..\GraphControl\CBackGround.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CCircleBack.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CLinearPlot.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CCirclePlot.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CLinearBack.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
   </ItemGroup>

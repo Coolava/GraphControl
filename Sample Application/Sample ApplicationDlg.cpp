@@ -16,10 +16,10 @@
 // CSampleApplicationDlg dialog
 
 
-
 CSampleApplicationDlg::CSampleApplicationDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_SAMPLEAPPLICATION_DIALOG, pParent)
 {
+
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -48,16 +48,16 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 
-	m_CtrlGraph.Create(NULL,NULL, WS_CHILD | WS_VISIBLE , CRect(0, 0, 102, 102), this, 10001);
+	m_CtrlCircle.Create(NULL,NULL, WS_CHILD | WS_VISIBLE , CRect(0, 0, 102, 102), this, 10001);
 
-	bool ret = m_CtrlGraph.addPlot(plot1);
+	bool ret = m_CtrlCircle.addPlot(plot1);
 	if (ret == true)
 	{
 		((CCirclePlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
 	
 	}
 
-	ret = m_CtrlGraph.addPlot(plot2);
+	ret = m_CtrlCircle.addPlot(plot2);
 	//if (ret == true)
 	//{
 	//	((CCirclePlot*)plot2->get())->setValue(45.0f, 360.0f-45.0f);
@@ -115,11 +115,11 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 	{
 		int iPos = sliderCircle.GetPos();
 
-		((CCirclePlot*)m_CtrlGraph.getPlot(0).get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
-		((CCirclePlot*)m_CtrlGraph.getPlot(1).get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
-		//((CCirclePlot*)plot1->get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
-		//((CCirclePlot*)plot2->get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
-		m_CtrlGraph.Invalidate(false);
+		((CCirclePlot*)m_CtrlCircle.getPlot(0))->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
+		((CCirclePlot*)m_CtrlCircle.getPlot(1))->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
+		
+
+		m_CtrlCircle.Invalidate(false);
 
 	}
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);

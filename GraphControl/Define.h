@@ -6,3 +6,9 @@ enum class GraphType
 	Circle = Default,
 	Linear
 };
+
+enum class IDoffset : UINT
+{
+	Background = 10000,
+	Plot = 10001
+};
