@@ -27,6 +27,8 @@ void CSampleApplicationDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_SLIDER_CIRCLE, sliderCircle);
+	DDX_Control(pDX, IDC_SLIDER_LINEAR, sliderLinear);
+	
 }
 
 BEGIN_MESSAGE_MAP(CSampleApplicationDlg, CDialogEx)
@@ -48,16 +50,39 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 
-	m_CtrlGraph.Create(NULL,NULL, WS_CHILD | WS_VISIBLE , CRect(0, 0, 102, 102), this, 10001);
+	m_CtrlCircleGraph.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(0, 0, 102, 102), this, 10001);
 
-	bool ret = m_CtrlGraph.addPlot(plot1);
+	bool ret = m_CtrlCircleGraph.addPlot();
 	if (ret == true)
 	{
-		((CCirclePlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
-	
+		m_CtrlCircleGraph.getPlot(0)->setColor(Gdiplus::Color::OrangeRed);
+		//((CCirclePlot*)m_CtrlCircleGraph.getPlot(0).get())->setColor(Gdiplus::Color::OrangeRed);
+
 	}
 
-	ret = m_CtrlGraph.addPlot(plot2);
+	ret = m_CtrlCircleGraph.addPlot();
+
+	sliderCircle.SetRange(0, 3600);
+
+
+	m_CtrlLinearGraph.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(104, 0, 102+104, 102), this, 10002);
+
+	ret = m_CtrlLinearGraph.addPlot();
+	if (ret == true)
+	{
+		m_CtrlLinearGraph.getPlot(0)->setColor(Gdiplus::Color::OrangeRed);
+
+		//((CLinearPlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
+		//((CLinearPlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
+
+	}
+
+	ret = m_CtrlLinearGraph.addPlot();
+
+	sliderCircle.SetRange(0, 3600);
+
+	sliderLinear.SetRange(0, 3600);
+	
 	//if (ret == true)
 	//{
 	//	((CCirclePlot*)plot2->get())->setValue(45.0f, 360.0f-45.0f);
@@ -65,8 +90,8 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 	//}
 	//((CCirclePlot*)(*plot1))->setValue(0.0f, 45.0f);
 
+
 	SetBackgroundColor(RGB(255, 255, 255));
-	sliderCircle.SetRange(0, 3600);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -115,11 +140,24 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 	{
 		int iPos = sliderCircle.GetPos();
 
-		((CCirclePlot*)m_CtrlGraph.getPlot(0).get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
-		((CCirclePlot*)m_CtrlGraph.getPlot(1).get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
+		m_CtrlCircleGraph.getPlot(0)->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
+		m_CtrlCircleGraph.getPlot(1)->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
+
+
+		//((CCirclePlot*)m_CtrlCircleGraph.getPlot(0).get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
+		//((CCirclePlot*)m_CtrlCircleGraph.getPlot(1).get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
 		//((CCirclePlot*)plot1->get())->setValue(0.0f, (Gdiplus::REAL)iPos / 10);
 		//((CCirclePlot*)plot2->get())->setValue((Gdiplus::REAL)iPos / 10, 360.0f - (Gdiplus::REAL)iPos / 10);
-		m_CtrlGraph.Invalidate(false);
+		m_CtrlCircleGraph.Invalidate(false);
+
+	}
+	else if (IDC_SLIDER_LINEAR == pScrollBar->GetDlgCtrlID())
+	{
+
+		int iPos = sliderLinear.GetPos();
+
+		m_CtrlLinearGraph.Invalidate(false);
+
 
 	}
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);

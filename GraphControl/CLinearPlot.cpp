@@ -1,18 +1,18 @@
-#include "CCirclePlot.h"
+#include "CLinearPlot.h"
 
-CCirclePlot::CCirclePlot()
+CLinearPlot::CLinearPlot()
 {
 }
 
-CCirclePlot::CCirclePlot(CRect rc)
+CLinearPlot::CLinearPlot(CRect rc)
 {
 	//CWnd::Create(NULL, NULL, WS_CHILD | WS_VISIBLE, rc, pParent, nID);
 	rcPlot = rc;
 }
 
-CCirclePlot::~CCirclePlot()
+CLinearPlot::~CLinearPlot()
 {
-	
+
 	if (bitmap)
 	{
 		bitmap.reset();
@@ -27,17 +27,17 @@ CCirclePlot::~CCirclePlot()
 	}
 }
 
-CCirclePlot::CCirclePlot(CCirclePlot&&)
+CLinearPlot::CLinearPlot(CLinearPlot&&)
 {
 }
 
 
-void CCirclePlot::setColor(Gdiplus::Color _color)
+void CLinearPlot::setColor(Gdiplus::Color _color)
 {
 	color = _color;
 }
 
-void CCirclePlot::setValue(Gdiplus::REAL _startAngle, Gdiplus::REAL _sweepAngle)
+void CLinearPlot::setValue(Gdiplus::REAL _startAngle, Gdiplus::REAL _sweepAngle)
 {
 	//CRect rc;
 	//GetClientRect(rc);
@@ -53,16 +53,16 @@ void CCirclePlot::setValue(Gdiplus::REAL _startAngle, Gdiplus::REAL _sweepAngle)
 	sweepAngle = _sweepAngle;
 	graphics->SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
-	graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle );
+	graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle);
 
 }
 
-Gdiplus::Bitmap* CCirclePlot::getBitmap()
+Gdiplus::Bitmap* CLinearPlot::getBitmap()
 {
 	return bitmap.get();
 }
 
-void CCirclePlot::setPlotColor(Gdiplus::Color _color)
+void CLinearPlot::setPlotColor(Gdiplus::Color _color)
 {
 	color = _color;
 }

@@ -28,7 +28,8 @@ protected:
 	// Generated message map functions
 	virtual BOOL OnInitDialog();
 
-	CGraphCtrl m_CtrlGraph;
+	CGraphCtrl m_CtrlCircleGraph;
+	CGraphCtrl m_CtrlLinearGraph;
 	vector<unique_ptr<CPlot>>::iterator plot1;
 	vector<unique_ptr<CPlot>>::iterator plot2;
 
@@ -37,5 +38,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CSliderCtrl sliderCircle;
+	CSliderCtrl sliderLinear;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 };

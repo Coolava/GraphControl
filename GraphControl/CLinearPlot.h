@@ -3,21 +3,21 @@
 #include <memory>
 
 using namespace std;
-class CCirclePlot :
+class CLinearPlot:
 	public CPlot
 {
 public:
-	CCirclePlot();
-	CCirclePlot(CRect rc);
-	~CCirclePlot();
-	CCirclePlot(CCirclePlot&&);
+	CLinearPlot();
+	CLinearPlot(CRect rc);
+	~CLinearPlot();
+	CLinearPlot(CLinearPlot&&) ;
 
 public:
 	virtual void setColor(Gdiplus::Color _color);
-	virtual void setValue(Gdiplus::REAL startAngle, Gdiplus::REAL sweepAngle);
+	//virtual void setValue(Gdiplus::REAL startAngle, Gdiplus::REAL sweepAngle);
 	virtual Gdiplus::Bitmap* getBitmap();
-
 	virtual void setPlotColor(Gdiplus::Color _color);
+
 private:
 	Gdiplus::REAL startAngle = 0.0f;
 	Gdiplus::REAL sweepAngle = 0.0f;

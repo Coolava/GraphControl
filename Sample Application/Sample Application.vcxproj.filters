@@ -48,7 +48,10 @@
     <ClInclude Include="..\GraphControl\Define.h">
       <Filter>GraphCtrl</Filter>
     </ClInclude>
-    <ClInclude Include="CLinearPlot.h">
+    <ClInclude Include="..\GraphControl\CLinearPlot.h">
+      <Filter>GraphCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GraphControl\CPlotContainer.h">
       <Filter>GraphCtrl</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,7 +74,10 @@
     <ClCompile Include="..\GraphControl\CPlot.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
-    <ClCompile Include="CLinearPlot.cpp">
+    <ClCompile Include="..\GraphControl\CLinearPlot.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GraphControl\CPlotContainer.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,6 +90,8 @@
     <None Include="res\SampleApplication.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Sample Application.ico">

@@ -1,11 +1,13 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by SampleApplication.rc
+// Microsoft Visual C++에서 생성한 포함 파일입니다.
+// SampleApplication.rc에서 사용되고 있습니다.
 //
 #define IDD_SAMPLEAPPLICATION_DIALOG    102
 #define IDR_MAINFRAME                   128
 #define IDC_SLIDER_CIRCLE               1000
 #define IDC_SLIDER1                     1000
+#define IDC_SLIDER_CIRCLE2              1001
+#define IDC_SLIDER_LINEAR               1001
 
 // Next default values for new objects
 // 

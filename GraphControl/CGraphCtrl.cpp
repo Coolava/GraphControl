@@ -20,37 +20,51 @@ CGraphCtrl::CGraphCtrl()
 
 CGraphCtrl::~CGraphCtrl()
 {
-	plotContainer.clear();
+	//plotContainer.
+	plotContainer.getContainer().clear();
+	//plotContainer.clear();
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 }
 
-bool CGraphCtrl::addPlot(vector<unique_ptr<CPlot>>::iterator& it)
+bool CGraphCtrl::addPlot()
 {
 	CRect rc;
 	GetClientRect(rc);
 	int nID = GetDlgCtrlID();
-	size_t size = plotContainer.size();
-	it = plotContainer.end();
-	if (graphType == GraphType::Circle)
+
+	size_t size = plotContainer.getContainer().size();
+	//it = plotContainer.getContainer().end();
+
+	if (nID > 0)
 	{
-		if (nID > 0)
+		try
 		{
-			try
+			if (graphType == GraphType::Circle)
 			{
-				plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc, this, nID + size + 10000)));
-				it = (plotContainer.end() - 1);
-				return true;
+				plotContainer.AddPlot(unique_ptr<CPlot>(new CCirclePlot(rc)));
+				//plotContainer.AddPlot(rc);
+				//plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc)));
+				//it = (plotContainer.getContainer().end() - 1);
+				//return true;
 			}
-			catch(...){/* return false */}
+			else if(graphType == GraphType::Linear)
+			{
+				plotContainer.AddPlot(unique_ptr<CPlot>(new CLinearPlot(rc)));
+				//plotContainer.AddPlot(rc);
+				//plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc)));
+				//it = (plotContainer.getContainer().end() - 1);
+				//return true;
+			}
 		}
+		catch (...) { return false; }
 	}
 
-	return false;
+	return true;
 }
 
 unique_ptr<CPlot>& CGraphCtrl::getPlot(size_t index)
 {
-	return plotContainer.at(index);
+	return plotContainer.getPlot(index);
 }
 
 void CGraphCtrl::OnPaint()
@@ -73,7 +87,7 @@ void CGraphCtrl::OnPaint()
 	*/
 	graphic_buffer.Clear(Gdiplus::Color::White);
 
-	for (auto &plot : plotContainer)
+	for (auto &plot : plotContainer.getContainer())
 	{
 		auto bitmap = plot->getBitmap();
 		if (bitmap != nullptr)

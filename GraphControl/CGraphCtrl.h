@@ -3,8 +3,10 @@
 #include <gdiplus.h>
 #include <vector>
 #include <memory>
-#include "CPlot.h"
+//#include "CPlot.h"
+#include "CPlotContainer.h"
 #include "CCirclePlot.h"
+#include "CLinearPlot.h"
 #include "Define.h"
 #pragma comment (lib,"Gdiplus.lib")
 
@@ -27,7 +29,7 @@ public:
 	Add new plot
 	it : plot ref
 	*/
-	bool addPlot(vector<unique_ptr<CPlot>>::iterator& it);
+	bool addPlot();
 
 	unique_ptr<CPlot>& getPlot(size_t index);
 
@@ -42,5 +44,6 @@ private:
 	GraphType graphType = GraphType::Default;
 	void InitializeDefault();
 
-	vector<unique_ptr<CPlot>> plotContainer;
+	CPlotContainer plotContainer;
+	//vector<unique_ptr<CPlot>> plotContainer;
 };

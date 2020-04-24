@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CPlotContainer" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>F:\Source\Repos\Coolava\GraphControl\GraphControl\CPlotContainer.h</FileName>
+      <NewMemberFileName>CPloatContainer.h</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSampleApplicationApp" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAEA=</HashCode>
+      <FileName>Sample Application.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CSampleApplicationDlg" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEAEEACIAAAAABBEAAAAAAAACAAQAAAAAAAAQAAA=</HashCode>
+      <FileName>Sample ApplicationDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCirclePlot" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAICAAAIAAAAAAiAiAAAAAAIAAA=</HashCode>
+      <FileName>F:\Source\Repos\Coolava\GraphControl\GraphControl\CCirclePlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CGraphCtrl" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAACAAAEAAAAAAEAAAiAAEAAEAAAAgQAAAAAAAQAA=</HashCode>
+      <FileName>F:\Source\Repos\Coolava\GraphControl\GraphControl\CGraphCtrl.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CLinearPlot" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAICAAAIAAAAAAiAgAAAAAAIAAE=</HashCode>
+      <FileName>F:\Source\Repos\Coolava\GraphControl\GraphControl\CLinearPlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPlot" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>F:\Source\Repos\Coolava\GraphControl\GraphControl\CPlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="GraphType" Collapsed="true">
+    <Position X="5.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAIAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>F:\Source\Repos\Coolava\GraphControl\GraphControl\Define.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
