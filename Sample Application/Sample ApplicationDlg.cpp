@@ -67,7 +67,7 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 	sliderCircle.SetRange(0, 3600);
 
 
-	m_CtrlLinearGraph.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(104, 0, 102+104, 102), this, 10002);
+	m_CtrlLinearGraph.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(104, 0, 500+104, 102), this, 10002);
 	m_CtrlLinearGraph.setGraphType(GraphType::Linear);
 
 	ret = m_CtrlLinearGraph.addPlot();

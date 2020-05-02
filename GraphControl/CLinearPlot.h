@@ -1,8 +1,12 @@
 #pragma once
+
+
 #include "CPlot.h"
 #include <memory>
-#include <vector>
 
+#define NOMINMAX
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 
@@ -74,7 +78,6 @@ private:
 	Gdiplus::REAL sweepAngle = 0.0f;
 
 	/*contain displayed point info*/
-	//Axis< Gdiplus::REAL> pointInfo;
 	Axis< size_t> pointInfo;
 
 	/*Array of points*/

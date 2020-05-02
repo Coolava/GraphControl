@@ -1,5 +1,5 @@
 #include "CLinearPlot.h"
-
+#define NOMINMAX
 CLinearPlot::CLinearPlot()
 {
 }
@@ -58,10 +58,8 @@ void CLinearPlot::addPoint(Gdiplus::REAL value)
 	*/
 	values.push_back(value);
 
-	axisInfo.xAxis.size();
-
 	/*
-	Calculate range to be displayed
+	Calculate X axis range to be displayed
 	*/
 	if (axisInfo.xAxis.size() < values.size())
 	{
@@ -74,15 +72,29 @@ void CLinearPlot::addPoint(Gdiplus::REAL value)
 		pointInfo.end = values.size();
 	}
 
+	/*Draw center lines*/
+	//Gdiplus::REAL x_center = (axisInfo.xAxis.end - axisInfo.xAxis.begin) / 2 + axisInfo.xAxis.begin;
+	Gdiplus::REAL y_center = (axisInfo.yAxis.end - axisInfo.yAxis.begin) / 2 + axisInfo.yAxis.begin;
+	//
+	//graphics->DrawLine(&pen, Gdiplus::PointF(axisInfo.xAxis.begin, y_center), Gdiplus::PointF(axisInfo.xAxis.end, y_center));
+	//graphics->DrawLine(&pen, Gdiplus::PointF(x_center, axisInfo.yAxis.begin), Gdiplus::PointF(x_center, axisInfo.yAxis.end));
 
+	/*Draw plot*/
 	if (pointInfo.size() > 0)
 	{
-		vector<Gdiplus::PointF> points;
+		Gdiplus::REAL minimum = values[pointInfo.begin], maximum = values[pointInfo.begin];
 
+		/*move to center*/
+		minimum = *std::min_element(values.begin()+ pointInfo.begin, values.end());
+		maximum = *std::max_element(values.begin()+ pointInfo.begin, values.end());
+
+		Gdiplus::REAL centerValue = (minimum + maximum) / 2;
+
+		vector<Gdiplus::PointF> points;
 		for (size_t i = 0; i < pointInfo.size(); i++)
 		{
 			size_t pos = i + pointInfo.begin;
-			points.push_back(Gdiplus::PointF(i, values[pos]));
+			points.push_back(Gdiplus::PointF(i, values[pos]+ (y_center- centerValue)));
 		}
 
 		graphics->DrawLines(&pen, &points[0], pointInfo.size());
