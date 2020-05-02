@@ -1,5 +1,6 @@
 #include "CCirclePlot.h"
 
+#include <vector>
 CCirclePlot::CCirclePlot()
 {
 }
@@ -49,11 +50,25 @@ void CCirclePlot::setValue(Gdiplus::REAL _startAngle, Gdiplus::REAL _sweepAngle)
 
 	Gdiplus::SolidBrush brush(color);
 
+	Gdiplus::Pen pen(color);
 	startAngle = _startAngle;
 	sweepAngle = _sweepAngle;
 	graphics->SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
-	graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle );
+	//graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle );
+
+	/*Test code*/
+	//Gdiplus::PointF points[100];
+	std::vector<Gdiplus::PointF> points;
+	for (int i = 0; i < 100; i++)
+	{
+		//points[i] = Gdiplus::PointF(i,10*sin(2 * 3.14 /100* (i+ _sweepAngle))+20);
+		points.push_back(Gdiplus::PointF(i,10*sin(2 * 3.14 /100* (i+ _sweepAngle))+20));
+	}
+	graphics->DrawBeziers(&pen, &points[0], 100);
+	/////////////////////////////////////////////////////////
+
+	//graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle);
 
 }
 

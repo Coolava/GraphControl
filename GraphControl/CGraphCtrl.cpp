@@ -29,6 +29,7 @@ CGraphCtrl::~CGraphCtrl()
 bool CGraphCtrl::addPlot()
 {
 	CRect rc;
+
 	GetClientRect(rc);
 	int nID = GetDlgCtrlID();
 

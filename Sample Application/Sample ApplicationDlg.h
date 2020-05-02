@@ -40,4 +40,6 @@ public:
 	CSliderCtrl sliderCircle;
 	CSliderCtrl sliderLinear;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnBnClickedOk();
+	afx_msg void OnBnClickedOk2();
 };

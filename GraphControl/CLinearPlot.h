@@ -15,7 +15,7 @@ public:
 	T begin;
 	T end;
 
-	inline T size() { return abs(end - begin); }
+	inline T size() { return (end - begin); }
 };
 
 template<typename T>
@@ -74,7 +74,8 @@ private:
 	Gdiplus::REAL sweepAngle = 0.0f;
 
 	/*contain displayed point info*/
-	Axis< Gdiplus::REAL> pointInfo;
+	//Axis< Gdiplus::REAL> pointInfo;
+	Axis< size_t> pointInfo;
 
 	/*Array of points*/
 	vector<Gdiplus::PointF> points;

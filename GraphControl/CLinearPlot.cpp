@@ -44,48 +44,49 @@ void CLinearPlot::setColor(Gdiplus::Color _color)
 
 void CLinearPlot::addPoint(Gdiplus::REAL value)
 {
-	values.push_back(value);
-	axisInfo.xAxis.size();
-
-
 	bitmap.reset(new Gdiplus::Bitmap(rcPlot.Width(), rcPlot.Height(), PixelFormat32bppARGB));
 	graphics.reset(Gdiplus::Graphics::FromImage(bitmap.get()));
 
 	Gdiplus::RectF ellipseRect(rcPlot.left + 1.0f, rcPlot.top + 1.0f, rcPlot.Width() - 2.0f, rcPlot.Height() - 2.0f);
 
-	Gdiplus::SolidBrush brush(color);
-
-
 	graphics->SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
 	Gdiplus::Pen pen(color);
 
-	pointInfo.end = values.size();
+	/*Save values
+	Will be used for slides
+	*/
+	values.push_back(value);
 
-	if (pointInfo.end > 0)
+	axisInfo.xAxis.size();
+
+	/*
+	Calculate range to be displayed
+	*/
+	if (axisInfo.xAxis.size() < values.size())
 	{
-
-		if ((axisInfo.xAxis.end - values.size()) > 0)
-		{
-			pointInfo.begin = 0;
-		}
-		else
-		{
-			pointInfo.begin = values.size() - axisInfo.xAxis.size();
-		}
-
-		points.clear();
-		for (size_t i = pointInfo.begin; i < pointInfo.end; i++)
-		{
-			points.push_back(Gdiplus::PointF(i - pointInfo.begin, value));
-		}
-
-		graphics->DrawBeziers(&pen, &points[pointInfo.begin], (INT)(pointInfo.end - pointInfo.begin));
+		pointInfo.begin = values.size() - (size_t)axisInfo.xAxis.size();
+		pointInfo.end = values.size();
 	}
-	
-	// (INT)(pointInfo.end - pointInfo.begin));
-	//graphics->DrawBeziers(&pen, &points[pointInfo.begin], (INT)(pointInfo.end - pointInfo.begin));
-	//;graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle);
+	else
+	{
+		pointInfo.begin = 0;
+		pointInfo.end = values.size();
+	}
+
+
+	if (pointInfo.size() > 0)
+	{
+		vector<Gdiplus::PointF> points;
+
+		for (size_t i = 0; i < pointInfo.size(); i++)
+		{
+			size_t pos = i + pointInfo.begin;
+			points.push_back(Gdiplus::PointF(i, values[pos]));
+		}
+
+		graphics->DrawLines(&pen, &points[0], pointInfo.size());
+	}
 
 }
 

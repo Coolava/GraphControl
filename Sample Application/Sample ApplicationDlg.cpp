@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CSampleApplicationDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_HSCROLL()
+	ON_BN_CLICKED(IDOK, &CSampleApplicationDlg::OnBnClickedOk)
+	ON_BN_CLICKED(IDOK2, &CSampleApplicationDlg::OnBnClickedOk2)
 END_MESSAGE_MAP()
 
 
@@ -71,7 +73,7 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 	ret = m_CtrlLinearGraph.addPlot();
 	if (ret == true)
 	{
-		m_CtrlLinearGraph.getPlot(0)->setColor(Gdiplus::Color::OrangeRed);
+		m_CtrlLinearGraph.getPlot(0)->setColor(Gdiplus::Color::DodgerBlue);
 
 		//((CLinearPlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
 		//((CLinearPlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
@@ -157,7 +159,7 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 
 		int iPos = sliderLinear.GetPos();
 
-		double val = 10*sin(iPos);
+		Gdiplus::REAL val = 10 * sin(2 * 3.14 / 3600 * (iPos)) + 20;
 		m_CtrlLinearGraph.getPlot(0)->addPoint(val);
 
 		m_CtrlLinearGraph.Invalidate(false);
@@ -165,4 +167,55 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 
 	}
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
+}
+
+
+void CSampleApplicationDlg::OnBnClickedOk()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CDialogEx::OnOK();
+}
+
+
+void CSampleApplicationDlg::OnBnClickedOk2()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CPaintDC dc(this);
+
+	Gdiplus::Graphics graphic(dc);
+	CRect rc;
+	GetClientRect(rc);
+
+	/*buffer*/
+	Gdiplus::Bitmap bitmap_buffer(rc.Width(), rc.Height(), PixelFormat32bppARGB);
+	Gdiplus::Graphics graphic_buffer(&bitmap_buffer);
+
+	/*Draw background*/
+	/*
+	If you draw nothing, you will see aliased graph.
+	Sol 1 : Fill background
+	Sol 2 : Copy parent background
+	*/
+	graphic_buffer.Clear(Gdiplus::Color::White);
+
+
+	Gdiplus::Pen pen(Gdiplus::Color::AliceBlue);
+
+	graphic_buffer.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
+
+	//graphics->FillPie(&brush, ellipseRect, startAngle, sweepAngle );
+
+	/*Test code*/
+	Gdiplus::PointF points[100];
+
+	for (int i = 0; i < 100; i++)
+	{
+		points[i] = Gdiplus::PointF(i, 10 * sin(2 * 3.14 / 100*i) + 20);
+	}
+	graphic_buffer.DrawBeziers(&pen, &points[0], 100);
+
+
+	graphic.DrawImage(&bitmap_buffer, 0, 0);
+
+	Invalidate(false);
 }
