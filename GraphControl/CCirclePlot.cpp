@@ -61,8 +61,3 @@ Gdiplus::Bitmap* CCirclePlot::getBitmap()
 {
 	return bitmap.get();
 }
-
-void CCirclePlot::setPlotColor(Gdiplus::Color _color)
-{
-	color = _color;
-}

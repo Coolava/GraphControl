@@ -31,6 +31,10 @@ public:
 	*/
 	bool addPlot();
 
+	/*Set GraphType
+	Default - Circle*/
+	void setGraphType(GraphType type);
+
 	unique_ptr<CPlot>& getPlot(size_t index);
 
 	DECLARE_MESSAGE_MAP()
@@ -42,6 +46,7 @@ private:
 	Gdiplus::Status InitializeGdiplus();
 
 	GraphType graphType = GraphType::Default;
+
 	void InitializeDefault();
 
 	CPlotContainer plotContainer;

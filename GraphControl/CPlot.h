@@ -21,6 +21,8 @@ public:
 	/*In Circleplot inherite this function*/
 	virtual void setValue(Gdiplus::REAL startAngle, Gdiplus::REAL sweepAngle);
 
+	/*In Linearplot inherite this function*/
+	virtual void addPoint(Gdiplus::REAL value);
 
 	//virtual void AddPlot(std::unique_ptr<CPlot>) = 0;
 

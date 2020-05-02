@@ -62,6 +62,11 @@ bool CGraphCtrl::addPlot()
 	return true;
 }
 
+void CGraphCtrl::setGraphType(GraphType type)
+{
+	graphType = type;
+}
+
 unique_ptr<CPlot>& CGraphCtrl::getPlot(size_t index)
 {
 	return plotContainer.getPlot(index);

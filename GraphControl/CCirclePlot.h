@@ -17,7 +17,7 @@ public:
 	virtual void setValue(Gdiplus::REAL startAngle, Gdiplus::REAL sweepAngle);
 	virtual Gdiplus::Bitmap* getBitmap();
 
-	virtual void setPlotColor(Gdiplus::Color _color);
+	//virtual void setPlotColor(Gdiplus::Color _color);
 private:
 	Gdiplus::REAL startAngle = 0.0f;
 	Gdiplus::REAL sweepAngle = 0.0f;

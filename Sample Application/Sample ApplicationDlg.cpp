@@ -66,6 +66,7 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 
 
 	m_CtrlLinearGraph.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(104, 0, 102+104, 102), this, 10002);
+	m_CtrlLinearGraph.setGraphType(GraphType::Linear);
 
 	ret = m_CtrlLinearGraph.addPlot();
 	if (ret == true)
@@ -155,6 +156,9 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 	{
 
 		int iPos = sliderLinear.GetPos();
+
+		double val = 10*sin(iPos);
+		m_CtrlLinearGraph.getPlot(0)->addPoint(val);
 
 		m_CtrlLinearGraph.Invalidate(false);
 
