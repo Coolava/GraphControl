@@ -185,6 +185,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\GraphControl\CBackGround.h" />
     <ClInclude Include="..\GraphControl\CCirclePlot.h" />
     <ClInclude Include="..\GraphControl\CGraphCtrl.h" />
     <ClInclude Include="..\GraphControl\CLinearPlot.h" />
@@ -199,6 +200,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\GraphControl\CBackGround.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\GraphControl\CCirclePlot.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -230,8 +234,6 @@
     <ResourceCompile Include="SampleApplication.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="res\SampleApplication.rc2" />
   </ItemGroup>
   <ItemGroup>

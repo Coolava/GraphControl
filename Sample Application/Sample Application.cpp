@@ -6,7 +6,9 @@
 #include "framework.h"
 #include "Sample Application.h"
 #include "Sample ApplicationDlg.h"
-
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -97,7 +99,6 @@ BOOL CSampleApplicationApp::InitInstance()
 #if !defined(_AFXDLL) && !defined(_AFX_NO_MFC_CONTROLS_IN_DIALOGS)
 	ControlBarCleanUp();
 #endif
-
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	return FALSE;

@@ -1,16 +1,14 @@
 #include "CLinearPlot.h"
-#define NOMINMAX
 CLinearPlot::CLinearPlot()
 {
 }
 
-CLinearPlot::CLinearPlot(CRect rc)
+CLinearPlot::CLinearPlot(CRect rc,std::shared_ptr<CAxisInfo> axis)
 {
 	//CWnd::Create(NULL, NULL, WS_CHILD | WS_VISIBLE, rc, pParent, nID);
 	rcPlot = rc;
 
-	axisInfo = CAxisInfo(rc);
-
+	axisInfo = axis;
 }
 
 CLinearPlot::~CLinearPlot()
@@ -44,11 +42,11 @@ void CLinearPlot::setColor(Gdiplus::Color _color)
 
 void CLinearPlot::addPoint(Gdiplus::REAL value)
 {
-	bitmap.reset(new Gdiplus::Bitmap(rcPlot.Width(), rcPlot.Height(), PixelFormat32bppARGB));
-	graphics.reset(Gdiplus::Graphics::FromImage(bitmap.get()));
 
 	Gdiplus::RectF ellipseRect(rcPlot.left + 1.0f, rcPlot.top + 1.0f, rcPlot.Width() - 2.0f, rcPlot.Height() - 2.0f);
-
+	
+	bitmap.reset(new Gdiplus::Bitmap(rcPlot.Width(), rcPlot.Height(), PixelFormat32bppARGB));
+	graphics.reset(Gdiplus::Graphics::FromImage(bitmap.get()));
 	graphics->SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
 	Gdiplus::Pen pen(color);
@@ -61,43 +59,46 @@ void CLinearPlot::addPoint(Gdiplus::REAL value)
 	/*
 	Calculate X axis range to be displayed
 	*/
-	if (axisInfo.xAxis.size() < values.size())
+
+	int pointCount = 0;
+	if (axisInfo->xAxis.size() < values.size())
 	{
-		pointInfo.begin = values.size() - (size_t)axisInfo.xAxis.size();
-		pointInfo.end = values.size();
+		axisInfo->xAxis.begin = values.size() - (size_t)axisInfo->xAxis.size();
+		axisInfo->xAxis.end = values.size();
+		pointCount = axisInfo->xAxis.size();
 	}
 	else
 	{
-		pointInfo.begin = 0;
-		pointInfo.end = values.size();
+		pointCount = values.size();
+		//axisInfo->xAxis.begin = 0;
+		//axisInfo->xAxis.end = values.size();
 	}
-
+	
 	/*Draw center lines*/
-	//Gdiplus::REAL x_center = (axisInfo.xAxis.end - axisInfo.xAxis.begin) / 2 + axisInfo.xAxis.begin;
-	Gdiplus::REAL y_center = (axisInfo.yAxis.end - axisInfo.yAxis.begin) / 2 + axisInfo.yAxis.begin;
-	//
-	//graphics->DrawLine(&pen, Gdiplus::PointF(axisInfo.xAxis.begin, y_center), Gdiplus::PointF(axisInfo.xAxis.end, y_center));
-	//graphics->DrawLine(&pen, Gdiplus::PointF(x_center, axisInfo.yAxis.begin), Gdiplus::PointF(x_center, axisInfo.yAxis.end));
+	Gdiplus::REAL y_center = (axisInfo->yAxis.size()) / 2 + axisInfo->yAxis.begin;
 
 	/*Draw plot*/
-	if (pointInfo.size() > 0)
+	if (axisInfo->xAxis.size() > 0)
 	{
-		Gdiplus::REAL minimum = values[pointInfo.begin], maximum = values[pointInfo.begin];
+		Gdiplus::REAL minimum = values[axisInfo->xAxis.begin], maximum = values[axisInfo->xAxis.begin];
 
 		/*move to center*/
-		minimum = *std::min_element(values.begin()+ pointInfo.begin, values.end());
-		maximum = *std::max_element(values.begin()+ pointInfo.begin, values.end());
+		auto minmax = std::minmax_element(values.begin() + axisInfo->xAxis.begin, values.end());
+		minimum = *minmax.first;
+		maximum = *minmax.second;
 
 		Gdiplus::REAL centerValue = (minimum + maximum) / 2;
 
 		vector<Gdiplus::PointF> points;
-		for (size_t i = 0; i < pointInfo.size(); i++)
+		for (size_t i = 0; i < pointCount; i++)
 		{
-			size_t pos = i + pointInfo.begin;
-			points.push_back(Gdiplus::PointF(i, values[pos]+ (y_center- centerValue)));
+			size_t pos = i + axisInfo->xAxis.begin;
+			auto pixel = axisInfo->yAxis.size() / axisInfo->Resolution.y;
+			points.push_back(Gdiplus::PointF(i, (values[pos] * pixel + (y_center- centerValue))));
+
 		}
 
-		graphics->DrawLines(&pen, &points[0], pointInfo.size());
+		graphics->DrawLines(&pen, &points[0], pointCount);
 	}
 
 }
@@ -105,9 +106,4 @@ void CLinearPlot::addPoint(Gdiplus::REAL value)
 Gdiplus::Bitmap* CLinearPlot::getBitmap()
 {
 	return bitmap.get();
-}
-
-void CLinearPlot::setAxisInfo(CAxisInfo info)
-{
-	axisInfo = info;
 }

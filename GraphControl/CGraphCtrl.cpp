@@ -10,19 +10,11 @@ CGraphCtrl::CGraphCtrl()
 	InitializeDefault();
 }
 
-//CGraphCtrl::CGraphCtrl(CWnd* pParent, UINT nID)
-//{
-//	CWnd::Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(0, 0, 100, 100), pParent, nID);
-//
-//	InitializeDefault();
-//
-//}
+
 
 CGraphCtrl::~CGraphCtrl()
 {
-	//plotContainer.
 	plotContainer.getContainer().clear();
-	//plotContainer.clear();
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 }
 
@@ -34,7 +26,6 @@ bool CGraphCtrl::addPlot()
 	int nID = GetDlgCtrlID();
 
 	size_t size = plotContainer.getContainer().size();
-	//it = plotContainer.getContainer().end();
 
 	if (nID > 0)
 	{
@@ -43,18 +34,10 @@ bool CGraphCtrl::addPlot()
 			if (graphType == GraphType::Circle)
 			{
 				plotContainer.AddPlot(unique_ptr<CPlot>(new CCirclePlot(rc)));
-				//plotContainer.AddPlot(rc);
-				//plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc)));
-				//it = (plotContainer.getContainer().end() - 1);
-				//return true;
 			}
 			else if(graphType == GraphType::Linear)
 			{
-				plotContainer.AddPlot(unique_ptr<CPlot>(new CLinearPlot(rc)));
-				//plotContainer.AddPlot(rc);
-				//plotContainer.push_back(unique_ptr<CPlot>(new CCirclePlot(rc)));
-				//it = (plotContainer.getContainer().end() - 1);
-				//return true;
+				plotContainer.AddPlot(unique_ptr<CPlot>(new CLinearPlot(plotArea,axisInfo)));
 			}
 		}
 		catch (...) { return false; }
@@ -72,6 +55,18 @@ unique_ptr<CPlot>& CGraphCtrl::getPlot(size_t index)
 {
 	return plotContainer.getPlot(index);
 }
+
+
+void CGraphCtrl::setAxisInfo(CAxisInfo info)
+{
+	axisInfo.reset(new CAxisInfo(info));
+}
+
+void CGraphCtrl::setResolution(CResolution<Gdiplus::REAL> resolution)
+{
+	axisInfo->Resolution = resolution;
+}
+
 
 void CGraphCtrl::OnPaint()
 {
@@ -93,12 +88,20 @@ void CGraphCtrl::OnPaint()
 	*/
 	graphic_buffer.Clear(Gdiplus::Color::White);
 
+	if (graphType == GraphType::Linear)
+	{
+		backGround->updateAxis();
+		auto bg = backGround->getBitmap();
+
+		graphic_buffer.DrawImage(bg, 0, 0);
+	}
+
 	for (auto &plot : plotContainer.getContainer())
 	{
 		auto bitmap = plot->getBitmap();
 		if (bitmap != nullptr)
 		{
-			graphic_buffer.DrawImage(bitmap, 0, 0);
+			graphic_buffer.DrawImage(bitmap, plotArea.left, plotArea.top);
 		}
 	}
 
@@ -119,4 +122,16 @@ void CGraphCtrl::InitializeDefault()
 	gdiplusStatus = InitializeGdiplus();
 
 
+}
+
+
+BOOL CGraphCtrl::PreCreateWindow(CREATESTRUCT& cs)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+
+	CRect rc = CRect(0, 0,  cs.cx, cs.cy);
+	plotArea = CRect(20, 0, cs.cx, cs.cy-20);
+	axisInfo.reset(new CAxisInfo(plotArea));
+	backGround.reset(new CBackGround(rc, axisInfo));
+	return CWnd::PreCreateWindow(cs);
 }

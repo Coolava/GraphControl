@@ -9,7 +9,7 @@ class CCirclePlot :
 public:
 	CCirclePlot();
 	CCirclePlot(CRect rc);
-	~CCirclePlot();
+	virtual ~CCirclePlot();
 	CCirclePlot(CCirclePlot&&);
 
 public:

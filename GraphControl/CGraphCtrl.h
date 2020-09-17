@@ -3,12 +3,14 @@
 #include <gdiplus.h>
 #include <vector>
 #include <memory>
-//#include "CPlot.h"
+
+#include "CBackGround.h"
 #include "CPlotContainer.h"
 #include "CCirclePlot.h"
 #include "CLinearPlot.h"
 #include "Define.h"
 #pragma comment (lib,"Gdiplus.lib")
+
 
 using namespace std;
 /*Working on Visual studio 2019 16.4.4*/
@@ -37,6 +39,14 @@ public:
 
 	unique_ptr<CPlot>& getPlot(size_t index);
 
+	auto& getBackground() { return backGround; }
+
+	auto getAxisInfo() { return axisInfo; }
+	void setAxisInfo(CAxisInfo info);
+	void setResolution(CResolution<Gdiplus::REAL> resolution);
+
+	std::shared_ptr<CAxisInfo> axisInfo;
+
 	DECLARE_MESSAGE_MAP()
 	afx_msg void OnPaint();
 
@@ -49,6 +59,9 @@ private:
 
 	void InitializeDefault();
 
+	unique_ptr<CBackGround> backGround;
 	CPlotContainer plotContainer;
-	//vector<unique_ptr<CPlot>> plotContainer;
+
+	CRect plotArea;
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 };

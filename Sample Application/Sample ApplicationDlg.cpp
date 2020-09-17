@@ -65,16 +65,18 @@ BOOL CSampleApplicationDlg::OnInitDialog()
 	ret = m_CtrlCircleGraph.addPlot();
 
 	sliderCircle.SetRange(0, 3600);
-
+	
 
 	m_CtrlLinearGraph.Create(NULL, NULL, WS_CHILD | WS_VISIBLE, CRect(104, 0, 500+104, 102), this, 10002);
 	m_CtrlLinearGraph.setGraphType(GraphType::Linear);
-
+	
 	ret = m_CtrlLinearGraph.addPlot();
 	if (ret == true)
 	{
 		m_CtrlLinearGraph.getPlot(0)->setColor(Gdiplus::Color::DodgerBlue);
 
+		auto axis = m_CtrlLinearGraph.getAxisInfo();
+		m_CtrlLinearGraph.setResolution({ axis->Resolution.x, 20});
 		//((CLinearPlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
 		//((CLinearPlot*)plot1->get())->setColor(Gdiplus::Color::OrangeRed);
 
@@ -159,7 +161,7 @@ void CSampleApplicationDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScro
 
 		int iPos = sliderLinear.GetPos();
 
-		Gdiplus::REAL val = 10 * sin(2 * 3.14 / 3600 * (iPos)) + 20;
+		Gdiplus::REAL val = 10 * sin(2 * 3.14 / 3600 * (iPos));
 		m_CtrlLinearGraph.getPlot(0)->addPoint(val);
 
 		m_CtrlLinearGraph.Invalidate(false);

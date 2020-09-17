@@ -54,6 +54,9 @@
     <ClInclude Include="..\GraphControl\CPlotContainer.h">
       <Filter>GraphCtrl</Filter>
     </ClInclude>
+    <ClInclude Include="..\GraphControl\CBackGround.h">
+      <Filter>GraphCtrl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sample Application.cpp">
@@ -80,6 +83,9 @@
     <ClCompile Include="..\GraphControl\CPlotContainer.cpp">
       <Filter>GraphCtrl</Filter>
     </ClCompile>
+    <ClCompile Include="..\GraphControl\CBackGround.cpp">
+      <Filter>GraphCtrl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SampleApplication.rc">
@@ -90,8 +96,6 @@
     <None Include="res\SampleApplication.rc2">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Sample Application.ico">
