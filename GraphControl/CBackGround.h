@@ -10,7 +10,7 @@ class CBackGround
 public:
 	CBackGround(CRect rc, std::shared_ptr<CAxisInfo> axis);
 	virtual ~CBackGround();
-	CBackGround(CBackGround&&);
+	CBackGround(CBackGround&&) noexcept;
 
 
 	bool updateAxis();

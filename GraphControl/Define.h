@@ -11,7 +11,7 @@ template<typename T>
 class Axis
 {
 public:
-	Axis() {};
+	Axis():begin(T()),end(T()){};
 	Axis(T _begin, T _end) :begin(_begin), end(_end) {}
 	T begin;
 	T end;
@@ -31,7 +31,7 @@ template<typename T>
 class CResolution
 {
 public:
-	CResolution() {};
+	CResolution():x(T()),y(T()) {};
 	CResolution(T _x, T _y) :x(_x), y(_y) {}
 	T x;
 	T y;

@@ -6,7 +6,7 @@ CBackGround::CBackGround(CRect rc, std::shared_ptr<CAxisInfo> axis)
 	rectBG = rc;
 
 	axisInfo = axis;
-	gridInfo = { 10,10 };
+	gridInfo = { 50,5 };
 }
 
 CBackGround::~CBackGround()
@@ -21,7 +21,7 @@ CBackGround::~CBackGround()
 	}
 }
 
-CBackGround::CBackGround(CBackGround&&)
+CBackGround::CBackGround(CBackGround&&) noexcept
 {
 }
 
@@ -35,21 +35,47 @@ bool CBackGround::updateAxis()
 		graphics->SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
 		Gdiplus::Pen pen(Gdiplus::Color::Black);
+
+		/*Pixel Value*/
+		CResolution<double> gridResolution{
+			gridInfo.x * rectPlot.Width() / axisInfo->Resolution.x ,
+			gridInfo.y* rectPlot.Height() / axisInfo->Resolution.y
+		};
+
+		/*Draw Horizontal grid*/
+		double offset_y = fmod(axisInfo->yAxis.begin, gridResolution.y);
+		for (double i = gridResolution.y + offset_y; i < rectPlot.bottom; i += gridResolution.y)
+		{
+			if (i > 0)
+			{
+				graphics->DrawLine(&pen,
+					Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left-5), static_cast<Gdiplus::REAL>(rectPlot.top+i)),
+					Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left), static_cast<Gdiplus::REAL>(rectPlot.top+i)));
+			}
+		}
+
+
 		graphics->DrawLine(&pen, 
-			Gdiplus::PointF(rectPlot.left, rectPlot.top ),
-			Gdiplus::PointF(rectPlot.left, rectPlot.bottom));
+			Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left), static_cast<Gdiplus::REAL>(rectPlot.top)),
+			Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left), static_cast<Gdiplus::REAL>(rectPlot.bottom)));
 
 
-		auto pixel = gridInfo.x * rectPlot.Height() / axisInfo->Resolution.y;
-		for (double i = pixel-axisInfo->xAxis.begin; i < rectBG.right; i += pixel)
+
+		/*Draw Horizontal grid*/
+		/*Plot will move.*/
+		double offset_x = fmod(axisInfo->xAxis.begin, gridResolution.x);
+		for (double i = gridResolution.x- offset_x; i < rectPlot.right; i += gridResolution.x)
 		{
 			if(i > 0)
 			{
 				graphics->DrawLine(&pen,
-					Gdiplus::PointF(rectPlot.left + i, rectPlot.bottom + 5),
-					Gdiplus::PointF(rectPlot.left + i, rectPlot.bottom));
+					Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left + i), static_cast<Gdiplus::REAL>(rectPlot.bottom + 5)),
+					Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left + i), static_cast<Gdiplus::REAL>(rectPlot.bottom)));
 			}
 		}
+
+
+
 
 		graphics->DrawLine(&pen, 
 			Gdiplus::PointF(rectPlot.right, rectPlot.bottom),

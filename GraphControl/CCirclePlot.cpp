@@ -28,7 +28,7 @@ CCirclePlot::~CCirclePlot()
 	}
 }
 
-CCirclePlot::CCirclePlot(CCirclePlot&&)
+CCirclePlot::CCirclePlot(CCirclePlot&&) noexcept
 {
 }
 

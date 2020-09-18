@@ -15,7 +15,7 @@ public:
 	CLinearPlot();
 	CLinearPlot(CRect rc, std::shared_ptr<CAxisInfo> axis);
 	virtual ~CLinearPlot();
-	CLinearPlot(CLinearPlot&&) ;
+	CLinearPlot(CLinearPlot&&) noexcept;
 
 public:
 	virtual void setColor(Gdiplus::Color _color);
@@ -38,6 +38,7 @@ private:
 	/*Array of points*/
 	vector<Gdiplus::PointF> points;
 
+	/*actual value*/
 	vector<Gdiplus::REAL> values;
 
 	unique_ptr<Gdiplus::Bitmap> bitmap;

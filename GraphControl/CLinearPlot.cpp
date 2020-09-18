@@ -28,7 +28,7 @@ CLinearPlot::~CLinearPlot()
 	}
 }
 
-CLinearPlot::CLinearPlot(CLinearPlot&&)
+CLinearPlot::CLinearPlot(CLinearPlot&&) noexcept
 {
 }
 
@@ -60,12 +60,12 @@ void CLinearPlot::addPoint(Gdiplus::REAL value)
 	Calculate X axis range to be displayed
 	*/
 
-	int pointCount = 0;
+	size_t pointCount = 0;
 	if (axisInfo->xAxis.size() < values.size())
 	{
 		axisInfo->xAxis.begin = values.size() - (size_t)axisInfo->xAxis.size();
 		axisInfo->xAxis.end = values.size();
-		pointCount = axisInfo->xAxis.size();
+		pointCount = static_cast<size_t>(axisInfo->xAxis.size());
 	}
 	else
 	{
@@ -82,19 +82,23 @@ void CLinearPlot::addPoint(Gdiplus::REAL value)
 	{
 		Gdiplus::REAL minimum = values[axisInfo->xAxis.begin], maximum = values[axisInfo->xAxis.begin];
 
-		/*move to center*/
+		/*get minmax value*/
 		auto minmax = std::minmax_element(values.begin() + axisInfo->xAxis.begin, values.end());
 		minimum = *minmax.first;
 		maximum = *minmax.second;
 
+		/*move to center*/
 		Gdiplus::REAL centerValue = (minimum + maximum) / 2;
+
+		/*adjust y resolution*/
+		axisInfo->Resolution.y = maximum - minimum;
 
 		vector<Gdiplus::PointF> points;
 		for (size_t i = 0; i < pointCount; i++)
 		{
-			size_t pos = i + axisInfo->xAxis.begin;
+			size_t pos = i + static_cast<size_t>(axisInfo->xAxis.begin);
 			auto pixel = axisInfo->yAxis.size() / axisInfo->Resolution.y;
-			points.push_back(Gdiplus::PointF(i, (values[pos] * pixel + (y_center- centerValue))));
+			points.push_back(Gdiplus::PointF(i, ( (maximum - values[pos]) * pixel /* + (y_center- centerValue)*/)));
 
 		}
 

@@ -10,7 +10,7 @@ public:
 	CCirclePlot();
 	CCirclePlot(CRect rc);
 	virtual ~CCirclePlot();
-	CCirclePlot(CCirclePlot&&);
+	CCirclePlot(CCirclePlot&&) noexcept;
 
 public:
 	virtual void setColor(Gdiplus::Color _color);
