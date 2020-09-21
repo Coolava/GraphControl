@@ -2,7 +2,7 @@
 #include <afxwin.h>
 #include <gdiplus.h>
 #include <memory>
-
+#include <string>
 #include "Define.h"
 
 class CBackGround
@@ -14,6 +14,8 @@ public:
 
 
 	bool updateAxis();
+	void DrawHorizontalGrid(double gridResolution, CRect& rectPlot);
+	void DrawVerticalGrid(double gridResolution, CRect& rectPlot);
 	virtual Gdiplus::Bitmap* getBitmap();
 private:
 	CResolution<double> gridInfo;
@@ -24,6 +26,8 @@ private:
 	std::unique_ptr<Gdiplus::Bitmap> bitmap;
 	std::unique_ptr<Gdiplus::Graphics> graphics;
 
-
+	//std::unique_ptr<Gdiplus::Font> font;
+	//std::unique_ptr<Gdiplus::StringFormat> stringFormat;
+	//Gdiplus::StringFormat stringFormat;
 };
 

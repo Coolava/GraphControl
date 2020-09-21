@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="GraphCtrl">
-      <UniqueIdentifier>{f7126508-959d-4924-8531-f977de4198b4}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample Application.h">
@@ -36,27 +33,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\GraphControl\CCirclePlot.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GraphControl\CGraphCtrl.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GraphControl\CPlot.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GraphControl\Define.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GraphControl\CLinearPlot.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GraphControl\CPlotContainer.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GraphControl\CBackGround.h">
-      <Filter>GraphCtrl</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sample Application.cpp">
@@ -67,24 +43,6 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GraphControl\CCirclePlot.cpp">
-      <Filter>GraphCtrl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GraphControl\CGraphCtrl.cpp">
-      <Filter>GraphCtrl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GraphControl\CPlot.cpp">
-      <Filter>GraphCtrl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GraphControl\CLinearPlot.cpp">
-      <Filter>GraphCtrl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GraphControl\CPlotContainer.cpp">
-      <Filter>GraphCtrl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GraphControl\CBackGround.cpp">
-      <Filter>GraphCtrl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

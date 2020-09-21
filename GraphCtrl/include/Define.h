@@ -11,11 +11,13 @@ template<typename T>
 class Axis
 {
 public:
-	Axis():begin(T()),end(T()){};
+	Axis() :begin(T()), end(T()), maximum(T()), minimum(T()) {};
 	Axis(T _begin, T _end) :begin(_begin), end(_end) {}
 	T begin;
 	T end;
-
+	T maximum;
+	T minimum;
+	//std::pair<T, T> minmax;
 	inline T size() { return (end - begin); }
 
 	bool operator!=(const Axis& a)
@@ -79,7 +81,7 @@ public:
 
 	/*number of points*/
 	CResolution< Gdiplus::REAL> Resolution = { 0,0 };
-
+	CResolution<int> axisWidth;
 	bool isUpdated()
 	{
 		if (prev->xAxis != this->xAxis

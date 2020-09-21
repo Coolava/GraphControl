@@ -11,18 +11,22 @@
 #include "Define.h"
 #pragma comment (lib,"Gdiplus.lib")
 
+#pragma once
 
-using namespace std;
+#ifdef GRAPHCTRL_EXPORTS
+#define GRAPHCTRL __declspec(dllexport)
+#else
+#define GRAPHCTRL __declspec(dllimport)
+#endif
+
+
 /*Working on Visual studio 2019 16.4.4*/
-class CGraphCtrl :
+class GRAPHCTRL CGraphCtrl :
 	public CWnd
 {
 public:
 	/*If you use this constructor, You have to call CWnd::Create*/
 	CGraphCtrl();
-
-	/*This function call CWnd::Create*/
-	//CGraphCtrl(CWnd* pParent, UINT nID);
 
 	~CGraphCtrl();
 

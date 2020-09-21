@@ -1,4 +1,5 @@
 #include "CGraphCtrl.h"
+
 BEGIN_MESSAGE_MAP(CGraphCtrl, CWnd)
 	ON_WM_PAINT()
 END_MESSAGE_MAP()
@@ -101,7 +102,14 @@ void CGraphCtrl::OnPaint()
 		auto bitmap = plot->getBitmap();
 		if (bitmap != nullptr)
 		{
-			graphic_buffer.DrawImage(bitmap, plotArea.left, plotArea.top);
+			if (graphType == GraphType::Circle)
+			{
+				graphic_buffer.DrawImage(bitmap, 0,0);
+			}
+			else if (graphType == GraphType::Linear)
+			{
+				graphic_buffer.DrawImage(bitmap, axisInfo->axisWidth.y, plotArea.top);
+			}
 		}
 	}
 
@@ -127,11 +135,10 @@ void CGraphCtrl::InitializeDefault()
 
 BOOL CGraphCtrl::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
-
 	CRect rc = CRect(0, 0,  cs.cx, cs.cy);
-	plotArea = CRect(20, 0, cs.cx, cs.cy-20);
+	plotArea = CRect(30, 0, cs.cx, cs.cy-20);
 	axisInfo.reset(new CAxisInfo(plotArea));
+	
 	backGround.reset(new CBackGround(rc, axisInfo));
 	return CWnd::PreCreateWindow(cs);
 }
