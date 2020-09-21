@@ -14,6 +14,7 @@ public:
 
 
 	bool updateAxis();
+	void clearBitmap(CRect rc);
 	void DrawHorizontalGrid(double gridResolution, CRect& rectPlot);
 	void DrawVerticalGrid(double gridResolution, CRect& rectPlot);
 	virtual Gdiplus::Bitmap* getBitmap();
@@ -26,8 +27,12 @@ private:
 	std::unique_ptr<Gdiplus::Bitmap> bitmap;
 	std::unique_ptr<Gdiplus::Graphics> graphics;
 
-	//std::unique_ptr<Gdiplus::Font> font;
-	//std::unique_ptr<Gdiplus::StringFormat> stringFormat;
-	//Gdiplus::StringFormat stringFormat;
+	std::unique_ptr<Gdiplus::Pen> Pen;
+	std::unique_ptr<Gdiplus::SolidBrush> stringBrush;
+	std::unique_ptr<Gdiplus::Font> font;
+	std::unique_ptr<Gdiplus::StringFormat> stringFormat;
+
+	std::wstring to_Fixedwstring(double value,int fixed=1);
+
 };
 

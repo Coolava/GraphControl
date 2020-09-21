@@ -30,8 +30,6 @@ protected:
 
 	CGraphCtrl m_CtrlCircleGraph;
 	CGraphCtrl m_CtrlLinearGraph;
-	vector<unique_ptr<CPlot>>::iterator plot1;
-	vector<unique_ptr<CPlot>>::iterator plot2;
 
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
