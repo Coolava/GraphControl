@@ -12,9 +12,7 @@ CBackGround::CBackGround(CRect rc, std::shared_ptr<CAxisInfo> axis)
 	Pen.reset(new Gdiplus::Pen(Gdiplus::Color::Black));
 	stringBrush.reset(new Gdiplus::SolidBrush(Gdiplus::Color::Black));
 	font.reset(new Gdiplus::Font(_T("Calibri"), 9, Gdiplus::FontStyle::FontStyleRegular, Gdiplus::Unit::UnitPixel));
-	stringFormat.reset(new Gdiplus::StringFormat());
-	stringFormat->SetAlignment(Gdiplus::StringAlignment::StringAlignmentFar);
-
+	stringFormat.reset(new Gdiplus::StringFormat()); 
 }
 
 CBackGround::~CBackGround()
@@ -64,11 +62,16 @@ void CBackGround::clearBitmap(CRect rc)
 
 void CBackGround::DrawHorizontalGrid(double gridResolution, CRect& rectPlot)
 {
+
+	stringFormat->SetAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
+	stringFormat->SetLineAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
+
 	/*Draw Horizontal grid*/
 	/*Plot will move.*/
 	int gridCount = 1;
 	double offset = fmod(axisInfo->xAxis.begin, gridResolution);
 	double prev = 0;
+	double half = gridResolution / 2;
 
 	for (double i = gridResolution - offset; i < rectPlot.right; i += gridResolution)
 	{
@@ -84,8 +87,9 @@ void CBackGround::DrawHorizontalGrid(double gridResolution, CRect& rectPlot)
 				auto value = axisInfo->xAxis.minimum - (gridInfo.x * gridCount);
 
 				std::wstring wstr(to_Fixedwstring(value));
+
 				graphics->DrawString(wstr.c_str(), static_cast<INT>(wstr.length()), font.get(),
-					Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left + i), static_cast<Gdiplus::REAL>(rectPlot.bottom + 5)), stringFormat.get(), stringBrush.get());
+					Gdiplus::RectF(static_cast<Gdiplus::REAL>(rectPlot.left + i- gridResolution), static_cast<Gdiplus::REAL>(rectPlot.bottom + 5), static_cast<Gdiplus::REAL>(gridResolution*2), static_cast<Gdiplus::REAL>(axisInfo->axisWidth.x - 5)), stringFormat.get(), stringBrush.get());
 			}
 			gridCount++;
 		}
@@ -102,10 +106,13 @@ void CBackGround::DrawHorizontalGrid(double gridResolution, CRect& rectPlot)
 
 void CBackGround::DrawVerticalGrid(double gridResolution, CRect& rectPlot)
 {
+	stringFormat->SetAlignment(Gdiplus::StringAlignment::StringAlignmentFar);
+	stringFormat->SetLineAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
+
 	/*Draw Vertical grid*/
 	int gridCount = 1;
 	double offset = fmod(axisInfo->yAxis.begin, gridResolution);
-
+	double half = gridResolution / 2;
 	for (double i = gridResolution + offset; i < rectPlot.bottom; i += gridResolution)
 	{
 		if (i > 0)
@@ -119,9 +126,10 @@ void CBackGround::DrawVerticalGrid(double gridResolution, CRect& rectPlot)
 			auto value = axisInfo->yAxis.maximum - (gridInfo.y * gridCount++);
 
 			std::wstring wstr(to_Fixedwstring(value));
-
+			
 			graphics->DrawString(wstr.c_str(), static_cast<INT>(wstr.length()), font.get(),
-				Gdiplus::PointF(static_cast<Gdiplus::REAL>(rectPlot.left - 5), static_cast<Gdiplus::REAL>(rectPlot.top + i)), stringFormat.get(), stringBrush.get());
+				Gdiplus::RectF(0, static_cast<Gdiplus::REAL>(rectPlot.top + i-half), static_cast<Gdiplus::REAL>(axisInfo->axisWidth.y-5), static_cast<Gdiplus::REAL>(gridResolution)),
+				stringFormat.get(), stringBrush.get());
 		}
 	}
 
